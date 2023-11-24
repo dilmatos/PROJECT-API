@@ -1,4 +1,4 @@
 # PROJECT-API
-This repository contains information about the APIs that can be consumed for popular Data Governance interfaces
+#### This repository contains information about the APIs that can be consumed for popular Data Governance interfaces
+#### This code was developed in VS Code, using oyarn for the libraries and node_module.zio which was made available in the main
 
-Esse codigo foi desenvolvido no VS Code, utilizando oyarn para as bibliotes e o node_module.zio que foi disponibilizado nas main
