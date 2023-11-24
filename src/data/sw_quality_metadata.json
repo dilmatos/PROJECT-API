@@ -1,0 +1,223 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Quality Metadata",
+      "description": "API Regarding TQuality Metadata",
+      "version": "1.0.0"
+    },
+    "paths": {
+      "/api-docs": {
+        "post": {
+          "summary": "Endpoint para processar objetos",
+          "requestBody": {
+            "description": "Quality Metadata",
+            "required": true,
+            "content": {
+              "application/json": {
+                "example": {
+                  "ObjectType": "table",
+                  "tableName": "gh_customer",
+                  "dlz": "BEES",
+                  "zone": "AFR",
+                  "business_domain": "Customer",
+                  "business_Sub-Domain": "-",
+                  "subregion": "-",
+                  "data_product": "Sap",
+                  "type_object": {
+                    "object_type": "Table"
+                  },
+                  "attributes": {
+                    "name": "gh_customer",
+                    "tableCalassification": "Cadastral",
+                    "tableType": "External",
+                    "catalogName": "brewdat_uc_bees_qa",
+                    "schema_Name": "brz_bees_sales_files",
+                    "columns": [
+                      {
+                        "columnName": "customer_nm",
+                        "attributes": {
+                          "datatype": "string",
+                          "length_Column": "50",
+                          "IsBusinessKey": "No",
+                          "BusinessKeyName": "",
+                          "IsPrimaryKey": "No",
+                          "PrimaryKeyName": "",
+                          "IsForeignKey": "No",
+                          "ForeignKeyName": "",
+                          "hasDataMasking": "No",
+                          "dataMaskingFormat": "",
+                          "hasPartition": "No",
+                          "dataPartitionFormat": "",
+                          "attribut_colums": [
+                            {
+                            "dlz": "BEES",
+                            "zone": "AFR",
+                            "business_domain": "Customer",   
+                            "data_product": "Sap",
+                            "catalog_name":"brewdat_uc_bees_qa",
+                            "datasetName":"customer",  
+                            "schema_name": "brz_bees_sales_files",
+                            "dataset_name":"customer",
+                            "colunm_name":"customer_nm",
+                            "kpi_name": "Accuracy",
+                            "dq_dimension_result": "100%"
+                            }
+                          ],
+                          "attribut_table": {
+                            "fitnessIndex": "100%"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Resposta bem-sucedida",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Requisição processada com sucesso!"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno do servidor",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": "Ocorreu um erro interno."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "HeaderQualityMetadata": {
+          "type": "object",
+          "properties": {
+            "ObjectType": {
+              "type": "string",
+              "description": "Object Type. Ex: table"
+            },
+            "tableName": {
+              "type": "string",
+              "description": "Table Name"
+            },
+            "dlz": {
+              "type": "string",
+              "description": "DLZ Abbreviation",
+              "enum": [
+                {"value": "AFR", "description": "Africa DLZ"},
+                {"value": "ANLT", "description": "Analytics - Machine Learning"},
+                {"value": "APC", "description": "Asia Pacific DLZ"},
+                {"value": "AUR", "description": "Function Area - Aurora"},
+                {"value": "BEES", "description": "Function Area - Bees"},
+                {"value": "BRWR", "description": "BREWRIGHT"},
+                {"value": "EUR", "description": "Europe DLZ"},
+                {"value": "GHQ", "description": "Global head quarter - DLZ"},
+                {"value": "GHQML", "description": "Global head quarter - Machine Learning DLZ"},
+                {"value": "IL", "description": "International Logistics"},
+                {"value": "LOLA", "description": "Function Area - Lola"},
+                {"value": "MRTC", "description": "Function Area – Martech"},
+                {"value": "MAZ", "description": "Middle Americas DLZ"},
+                {"value": "MAZML", "description": "Middle Americas Machine Learning DLZ"},
+                {"value": "MGMT", "description": "Function Management DLZ"},
+                {"value": "MLPLT", "description": "Platform - Machine Learning DLZ"},
+                {"value": "NAZ", "description": "North America DLZ"},
+                {"value": "PPLE", "description": "Function People"},
+                {"value": "PLTL", "description": "Function Platform"},
+                {"value": "PRTL", "description": "Function Portal"},
+                {"value": "SPLYC", "description": "Function Supply Chain"},
+                {"value": "NCSA", "description": "Outside CSA"}
+              ]
+            },
+            "zone": {
+              "type": "string",
+              "description": "Abbreviation for Zones",
+              "enum": [
+                {"value": "AFR", "description": "Africa Zone"},
+                {"value": "APC", "description": "Asia Pacific Zone"},
+                {"value": "EUR", "description": "Europe Zone"},
+                {"value": "GHQ", "description": "Global head quarter"},
+                {"value": "MAZ", "description": "Middle Americas Zone"},
+                {"value": "NAZ", "description": "North America Zone"},
+                {"value": "SAZ", "description": "South America Zone"}
+              ]
+            },
+            "business_domain": {
+              "type": "string",
+              "description": "The business domains that are part of the Entity and the Attribute",
+              "enum":["Audit", "Common", "Customer", "Finance", "Geo", "Legal", "Logistics", "Marketing", "Order", "People", "Procurement", "Product", "Promotion", "Sales", "Supply", "Technology"]
+            },
+            "business_Sub-Domain": {
+              "type": "string",
+              "description": "The business sub-domains that are part of the DB"
+            },
+            "subregion": {
+              "type": "string",
+              "description": "Subregion that a country may have."
+            },
+            "data_product": {
+              "type": "string",
+              "description": "Origin data source name"
+            }
+          }
+        },
+        "QualityMetadata": {
+          "type": "object",
+          "properties": {
+            "dlz": {
+                "$ref": "#/components/schemas/HeaderQualityMetadata/properties/dlz"
+            },
+            "zone": {
+                "$ref": "#/components/schemas/HeaderQualityMetadata/properties/zone"
+            },
+            "business_domain": {
+                "$ref": "#/components/schemas/HeaderQualityMetadata/properties/business_domain"
+            },  
+            "dataset_product": {
+              "type": "string",
+              "description": "Origin dataset name"   
+            },
+            "catalog_name": {
+                "type": "string",
+                "description": "Catalog name"   
+            },
+            "schema_Name": {
+                "type": "string",
+                "description": "The name of the source schemas that we will receive the information from"
+            },
+            "datasetName": {
+                "type": "string",
+                "description": "The name of the dataset that we will receive the information from"
+            },
+            "colunmtName": {
+              "type": "string",
+              "description": "Column name"
+            },
+            "kpi_name": {
+              "type": "string",
+              "description": "dimension name",
+              "enum":["Accuracy", "Integrity", "Validity", "Completeness", "Consistency", "Uniqueness", "Timeliness"]
+            },
+            "dq_dimension_result": {
+              "type": "string",
+              "description": "Value between 0 and 100%"
+            }
+          }
+        }
+      }
+    }
+  }
+                         
+                    
+                      
