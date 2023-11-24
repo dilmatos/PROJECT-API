@@ -1,0 +1,304 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Business Metadata",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api-docs_bu": {
+      "post": {
+        "summary": "Endpoint para processar objetos",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "example": {
+                "ObjectType": "table",
+                "tableName": "gh_customer",
+                "dlz": "BEES",
+                "zone": "AFR",
+                "business_domain": "Customer",
+                "business_Sub-Domain": "-",
+                "subregion": "-",
+                "data_Source": "Sap",
+                "attributes": {
+                  "name": "gh_customer",
+                  "tableClassification": "Cadastral",
+                  "tableType": "External",
+                  "databaseName": "brewdat_uc_bees_qa",
+                  "schema_Name": "brz_bees_sales_files",
+                  "columns": [
+                    {
+                      "columnName": "customer_nm",
+                      "attribute": {
+                        "attribute_Name": "customer_nm",
+                        "attribute_description": "the client name",                        
+                        "comment": "xxx",
+                        "isPII": "Yes",
+                        "businessRule": "no have",
+                        "sdiClassification": "Internal Use Only ",
+                        "country": "Ghana"
+                      }
+                    }
+                  ]
+                },
+                "logicalName": "Customer",
+                "descriptionLogicalName": "Table that has information regarding Customer",
+                "update_Type": "Full",
+                "updateFrequencyTable": "Daily 00:00 (UTC-6)",
+                "data_Storage_time": "1 year",
+                "data_Volume": "5gb",
+                "country": "Ghana",
+                "attribute": [
+                  {
+                    "attribute_Name": "customer_nm",
+                    "attribute_description": "the client name",
+                    "comment": "xxx",
+                    "isPII": "Yes",
+                    "businessRule": "no have",
+                    "sdiClassification": "Internal Use Only ",
+                    "country": "Ghana"
+                  }
+                ],
+                "personas": {
+                  "dataOwnerEmail": "helen.place@za.ab-inbev.com",
+                  "businessStewardEmail": "helen.place@za.ab-inbev.com",
+                  "technicalStewardEmail": "helen.place@za.ab-inbev.com",
+                  "dataGovernorEmail": "Name of Data Governor",
+                  "businessDomainGovernorEmail": "Name of Business Domain Governor"
+                },
+                "layers": {
+                  "medallionLayerName": "brz",
+                  "layerName": "Bronze"
+                }
+              }
+            }
+          }
+          },
+          "responses": {
+            "200": {
+              "description": "Resposta bem-sucedida",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "message": "Requisição processada com sucesso!"
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "Erro interno do servidor",
+              "content": {
+                "application/json": {
+                  "example": {
+                    "error": "Ocorreu um erro interno."
+                  }
+                }
+              }
+            }
+          }
+        
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HeaderBusinessMetadata": {
+        "type": "object",
+        "properties": {
+          "ObjectType": {
+            "type": "string",
+            "description": "Object Type. Ex: table"
+          },
+          "tableName": {
+            "type": "string",
+            "description": "Table Name"
+          },
+          "dlz": {
+            "type": "string",
+            "description": "DLZ Abbreviation",
+            "enum": [
+              {"value": "AFR", "description": "Africa DLZ"},
+              {"value": "ANLT", "description": "Analytics - Machine Learning"},
+              {"value": "APC", "description": "Asia Pacific DLZ"},
+              {"value": "AUR", "description": "Function Area - Aurora"},
+              {"value": "BEES", "description": "Function Area - Bees"},
+              {"value": "BRWR", "description": "BREWRIGHT"},
+              {"value": "EUR", "description": "Europe DLZ"},
+              {"value": "GHQ", "description": "Global head quarter - DLZ"},
+              {"value": "GHQML", "description": "Global head quarter - Machine Learning DLZ"},
+              {"value": "IL", "description": "International Logistics"},
+              {"value": "LOLA", "description": "Function Area - Lola"},
+              {"value": "MRTC", "description": "Function Area – Martech"},
+              {"value": "MAZ", "description": "Middle Americas DLZ"},
+              {"value": "MAZML", "description": "Middle Americas Machine Learning DLZ"},
+              {"value": "MGMT", "description": "Function Management DLZ"},
+              {"value": "MLPLT", "description": "Platform - Machine Learning DLZ"},
+              {"value": "NAZ", "description": "North America DLZ"},
+              {"value": "PPLE", "description": "Function People"},
+              {"value": "PLTL", "description": "Function Platform"},
+              {"value": "PRTL", "description": "Function Portal"},
+              {"value": "SPLYC", "description": "Function Supply Chain"},
+              {"value": "NCSA", "description": "Outside CSA"}
+            ]
+          },
+          "zone": {
+            "type": "string",
+            "description": "Abbreviation for Zones",
+            "enum": [
+              {"value": "AFR", "description": "Africa Zone"},
+              {"value": "APC", "description": "Asia Pacific Zone"},
+              {"value": "EUR", "description": "Europe Zone"},
+              {"value": "GHQ", "description": "Global head quarter"},
+              {"value": "MAZ", "description": "Middle Americas Zone"},
+              {"value": "NAZ", "description": "North America Zone"},
+              {"value": "SAZ", "description": "South America Zone"}
+            ]
+          },
+          "business_domain": {
+            "type": "string",
+            "description": "The business domains that are part of the Entity and the Attribute",
+            "enum":["Audit", "Common", "Customer", "Finance", "Geo", "Legal", "Logistics", "Marketing", "Order", "People", "Procurement", "Product", "Promotion", "Sales", "Supply", "Technology"]
+          },
+          "business_Sub-Domain": {
+            "type": "string",
+            "description": "The business sub-domains that are part of the DB"
+          },
+          "subregion": {
+            "type": "string",
+            "description": "Subregion that a country may have."
+          },
+          "data_Source": {
+            "type": "string",
+            "description": "Origin data source name"
+          }
+        }
+      },
+      "BusinessMetadata": {
+        "type": "object",
+        "properties": {
+          "logicalName": {
+            "type": "string",
+            "description": "Logical name of the table"
+          },
+          "descriptionLogicalName": {
+            "type": "string",
+            "description": "Logical Description of the table, this description must contain the purpose of the table."
+          },
+          "updateType": {
+            "type": "string",
+            "description": "The way the table is loaded full or incremental.",
+            "enum": ["Append", "Full"]
+          },
+          "updateFrequencyTable": {
+            "type": "string",
+            "description": "The data update time in the table, Daily 00:00 (UTC-6)"
+          },
+          "dataStorageTime": {
+            "type": "string",
+            "description": "Information on how long table data is available for use 1 year, etc.."
+          },
+          "dataVolume": {
+            "type": "string",
+            "description": "The volume of data that the table can have. Ex.: (5gb, 302kb, 1tb)",
+            "enum": ["Bytes", "Mb", "Gb", "Pb", "Tb"]
+          },
+          "country": {
+            "type": "string",
+            "description": "Country regarding of Zone",
+            "enum": ["GH", "TZ", "UG", "ZA", "KR", "CN", "BE", "NL", "UK", "CO", "DO", "EC", "HN", "MX", "PA", "AR", "BO", "BR", "PY", "UY"]
+          },
+          "sdiClassification": {
+            "type": "string",
+            "description": "Data privacy information",
+            "enum": ["Strictly Confidential", "Confidential", "Internal Use Only", "Public"]
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "columnName": {
+                  "type": "string",
+                  "description": "Logical name"
+                },
+                "attribute": {
+                  "type": "object",
+                  "properties": {
+                    "attribute_Name": {
+                      "type": "string",
+                      "description": "Logical name of the attribute (column)"
+                    },
+                    "attribute_description": {
+                      "type": "string",
+                      "description": "Description of the attribute (column) name must have a description of the purpose of the fields."
+                    },
+                    "comment": {
+                      "type": "string",
+                      "description": "A comment that may be relevant to the attribute"
+                    },
+                    "isPII": {
+                      "type": "string",
+                      "description": "Indicator if the field is PII.",
+                      "enum": ["Yes", "No"]
+                    },
+                    "businessRule": {
+                      "type": "string",
+                      "description": "Business rules relevant to the field"
+                    },
+                    "country": {
+                      "type": "string",
+                      "description": "Country regarding of Zone"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "Persona": {
+        "type": "object",
+        "properties": {
+          "dataOwnerEmail": {
+            "type": "string",
+            "description": "Name of the person responsible for the data"
+          },
+          "businessStewardEmail": {
+            "type": "string",
+            "description": "Name of the person who will respond about the business."
+          },
+          "technicalStewardEmail": {
+            "type": "string",
+            "description": "Name of the person who will be responsible for the technical part."
+          },
+          "dataGovernorEmail": {
+            "type": "string",
+            "description": "Responsible for DLZ Governance"
+          },
+          "businessDomainGovernorEmail": {
+            "type": "string",
+            "description": "Responsible for Governance / DLZ/Domain"
+          }
+        }
+      },
+      "Layer": {
+        "type": "object",
+        "properties": {
+          "medallionLayerName": {
+            "type": "string",
+            "description": "Name of the layers where the loaded data is stored inside UC",
+            "enum": ["Raw", "Bronze", "Silver", "Gold"]
+          },
+          "layerName": {
+            "type": "string",
+            "description": "Name of the layers where the loaded data is stored.",
+            "enum": ["HZ", "STG", "DWH", "RPT", "AZ"]
+          }
+        }
+      }
+    }
+  }
+}
+  
+    
+  
