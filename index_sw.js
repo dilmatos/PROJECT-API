@@ -1,3 +1,4 @@
+require("dotenv").config
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
@@ -26,7 +27,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Suas rotas e configurações de API aqui...
 
-app.listen(port, () => {
-    console.log(`Servidor está rodando na porta ${port}`);
+app.listen(process.env.PORT || port, () => {
+    console.log(`Servidor está rodando na porta ${process.env.PORT || port}`);
 });
 
